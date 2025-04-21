@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/paulberta/Desktop/01_Projects/UNI.SSI.Project/ICSAnomalyDetection_Console/ICSAnomalyDetection_Console.csproj": {}
+  },
+  "projects": {
+    "/Users/paulberta/Desktop/01_Projects/UNI.SSI.Project/ICSAnomalyDetection_Console/ICSAnomalyDetection_Console.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/paulberta/Desktop/01_Projects/UNI.SSI.Project/ICSAnomalyDetection_Console/ICSAnomalyDetection_Console.csproj",
+        "projectName": "ICSAnomalyDetection_Console",
+        "projectPath": "/Users/paulberta/Desktop/01_Projects/UNI.SSI.Project/ICSAnomalyDetection_Console/ICSAnomalyDetection_Console.csproj",
+        "packagesPath": "/Users/paulberta/.nuget/packages/",
+        "outputPath": "/Users/paulberta/Desktop/01_Projects/UNI.SSI.Project/ICSAnomalyDetection_Console/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/paulberta/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "ScottPlot": {
+              "target": "Package",
+              "version": "[5.0.55, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
