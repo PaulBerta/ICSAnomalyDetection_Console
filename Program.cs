@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using ICSAnomalyDetection_Console;
+using ScottPlot;
 
 class Program
 {
@@ -47,24 +48,74 @@ class Program
         var liveStep2 = attackLines.Select(p => double.Parse(p[1])).ToList();
         var liveStep3 = attackLines.Select(p => double.Parse(p[2])).ToList();
         
-        int count = liveStep1.Count;
-        for (int i = 0; i < count; i++)
+        var cPlusMean = new List<double>[3];
+        var cMinusMean = new List<double>[3];
+        var cPlusDev  = new List<double>[3];
+        var cMinusDev = new List<double>[3];
+        for (int i = 0; i < 3; i++)
         {
-            double v1 = liveStep1[i], v2 = liveStep2[i], v3 = liveStep3[i];
+            cPlusMean[i]  = new List<double>();
+            cMinusMean[i] = new List<double>();
+            cPlusDev[i]   = new List<double>();
+            cMinusDev[i]  = new List<double>();
+        }
+        
+        for (int i = 0; i < liveStep1.Count; i++)
+        {
+            double[] values = { liveStep1[i], liveStep2[i], liveStep3[i] };
             
-            if (cusumDetectorByMean1.AnomalyDetectionByMean(v1))
-                Console.WriteLine($"CUSUMDetectorByMean: [Index {i}] STEP_1 anomaly: {v1} ms");
-            if (cusumDetectorByMean2.AnomalyDetectionByMean(v2))
-                Console.WriteLine($"CUSUMDetectorByMean: [Index {i}] STEP_2 anomaly: {v2} ms");
-            if (cusumDetectorByMean3.AnomalyDetectionByMean(v3))
-                Console.WriteLine($"CUSUMDetectorByMean: [Index {i}] STEP_3 anomaly: {v3} ms");
-            
-            if (cusumDetectorByDeviation1.AnomalyDetectionByDeviation(v1))
-                Console.WriteLine($"CUSUMDetectorByDeviation: [Index {i}] STEP_1 anomaly: {v1} ms");
-            if (cusumDetectorByDeviation2.AnomalyDetectionByDeviation(v2))
-                Console.WriteLine($"CUSUMDetectorByDeviation: [Index {i}] STEP_2 anomaly: {v2} ms");
-            if (cusumDetectorByDeviation3.AnomalyDetectionByDeviation(v3))
-                Console.WriteLine($"CUSUMDetectorByDeviation: [Index {i}] STEP_3 anomaly: {v3} ms");
+            for (int step = 0; step < 3; step++)
+            {
+                var m = step == 0 ? cusumDetectorByMean1 :
+                        step == 1 ? cusumDetectorByMean2 :
+                                    cusumDetectorByMean3;
+                var mC = m.AnomalyDetectionByMean(values[step]);
+                cPlusMean[step].Add(mC.cPlus);
+                cMinusMean[step].Add(mC.cMinus);
+                
+                var d = step == 0 ? cusumDetectorByDeviation1 :
+                        step == 1 ? cusumDetectorByDeviation2 :
+                                    cusumDetectorByDeviation3;
+                var dC = d.AnomalyDetectionByDeviation(values[step]);
+                cPlusDev[step].Add(dC.cPlus);
+                cMinusDev[step].Add(dC.cMinus);
+            }
+        }
+        
+        void SaveCusumPlot(
+            double[] xs, List<double> cPlus, List<double> cMinus,
+            string title, string fileName)
+        {
+            var plt = new Plot();
+            plt.Title(title);
+            plt.XLabel("Index");
+            plt.YLabel("C-value");
+            plt.Add.Scatter(xs, cPlus.ToArray());
+            plt.Add.Scatter(xs, cMinus.ToArray());
+            plt.ShowLegend(Alignment.LowerRight);
+            plt.SavePng(fileName, 1000, 400);
+            Console.WriteLine($"Saved {fileName}");
+        }
+        
+        double[] indices = Enumerable.Range(0, liveStep1.Count).Select(i => (double)i).ToArray();
+        
+        for (int step = 0; step < 3; step++)
+        {
+            string stepName = $"STEP_{step + 1}";
+            SaveCusumPlot(
+                indices,
+                cPlusMean[step],
+                cMinusMean[step],
+                $"{stepName} – CUSUM by Mean",
+                $"{stepName.ToLower()}_cusum_mean.png"
+            );
+            SaveCusumPlot(
+                indices,
+                cPlusDev[step],
+                cMinusDev[step],
+                $"{stepName} – CUSUM by Deviation",
+                $"{stepName.ToLower()}_cusum_dev.png"
+            );
         }
     }
 }
