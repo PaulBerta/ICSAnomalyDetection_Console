@@ -17,3 +17,10 @@ The program reads training data, initializes the CUSUM detectors (mean & deviati
 - step_3_cusum_mean.png
 - step_3_cusum_dev.png
 
+# Results
+
+![Alt text](https://assets.digitalocean.com/articles/alligator/boo.svg "a title")
+
+# References
+
+[1] Bolboacă, Roland, Béla Genge, and Piroska Haller. "Using Side-Channels to Detect Abnormal Behavior in Industrial Control Systems." In 2019 IEEE 15th International Conference on Intelligent Computer Communication and Processing (ICCP), pp. 435-441. IEEE, 2019.
