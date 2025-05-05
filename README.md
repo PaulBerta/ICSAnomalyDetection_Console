@@ -19,7 +19,10 @@ The program reads training data, initializes the CUSUM detectors (mean & deviati
 
 # Results
 
-![Alt text](https://assets.digitalocean.com/articles/alligator/boo.svg "a title")
+![STEP 3: CUSUM(mean) - C+](./Resources/step_2_cusum_mean.png)
+![STEP 2: CUSUM(deviation) - C+](./Resources/step_2_cusum_dev.png)
+![STEP 3: CUSUM(mean) - C+](./Resources/step_3_cusum_mean.png)
+![STEP 3: CUSUM(deviation) - C-](./Resources/step_3_cusum_dev.png)
 
 # References
 
