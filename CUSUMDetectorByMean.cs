@@ -11,7 +11,7 @@ public class CUSUMDetectorByMean
     private double mean { get; set; }
     private double stdDev { get; set; }
     private double tolerance { get; set; }
-    private double threshold { get; set; }
+    public double threshold { get; set; }
 
     private CValue _cValue;
 

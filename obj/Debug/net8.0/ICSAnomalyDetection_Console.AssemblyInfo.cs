@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ICSAnomalyDetection_Console")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f4eaf2148f2e5553707b49febf5d7960c9b031d")]
 [assembly: System.Reflection.AssemblyProductAttribute("ICSAnomalyDetection_Console")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ICSAnomalyDetection_Console")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

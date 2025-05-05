@@ -84,14 +84,16 @@ class Program
         
         void SaveCusumPlot(
             double[] xs, List<double> cPlus, List<double> cMinus,
-            string title, string fileName)
+            string title, string fileName, double threshold)
         {
             var plt = new Plot();
             plt.Title(title);
             plt.XLabel("Index");
             plt.YLabel("C-value");
-            plt.Add.Scatter(xs, cPlus.ToArray());
-            plt.Add.Scatter(xs, cMinus.ToArray());
+            plt.Add.ScatterLine(xs, cPlus.ToArray());
+            //plt.Add.ScatterLine(xs, cMinus.ToArray());
+            plt.Add.ScatterLine(xs ,Enumerable.Repeat(threshold, xs.Length).ToArray());
+            //plt.Add.ScatterLine(xs ,Enumerable.Repeat(-threshold, xs.Length).ToArray());
             plt.ShowLegend(Alignment.LowerRight);
             plt.SavePng(fileName, 1000, 400);
             Console.WriteLine($"Saved {fileName}");
@@ -101,20 +103,45 @@ class Program
         
         for (int step = 0; step < 3; step++)
         {
+            double meanThreshold =0, devThreshold = 0;
+            switch (step)
+            {
+                case 0:
+                {
+                    meanThreshold = cusumDetectorByMean1.threshold;
+                    devThreshold = cusumDetectorByDeviation1.threshold;
+                    break;
+                }
+                case 1:
+                {
+                    meanThreshold = cusumDetectorByMean2.threshold;
+                    devThreshold = cusumDetectorByDeviation2.threshold;
+                    break;
+                }
+                case 2:
+                {
+                    meanThreshold = cusumDetectorByMean3.threshold;
+                    devThreshold = cusumDetectorByDeviation3.threshold;
+                    break;
+                }
+            }
+            
             string stepName = $"STEP_{step + 1}";
             SaveCusumPlot(
                 indices,
                 cPlusMean[step],
                 cMinusMean[step],
                 $"{stepName} – CUSUM by Mean",
-                $"{stepName.ToLower()}_cusum_mean.png"
+                $"{stepName.ToLower()}_cusum_mean.png",
+                meanThreshold
             );
             SaveCusumPlot(
                 indices,
                 cPlusDev[step],
                 cMinusDev[step],
                 $"{stepName} – CUSUM by Deviation",
-                $"{stepName.ToLower()}_cusum_dev.png"
+                $"{stepName.ToLower()}_cusum_dev.png",
+                devThreshold
             );
         }
     }

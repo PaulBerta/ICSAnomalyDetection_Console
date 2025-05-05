@@ -4,7 +4,7 @@ public class CUSUMDetectorByDeviation
     private double meanDeviation { get; set; }
     private double stdDevDeviation { get; set; }
     private double tolerance { get; set; }
-    private double threshold { get; set; }
+    public double threshold { get; set; }
     private int windowSize { get; set; }
     private Queue<double> window;
 
